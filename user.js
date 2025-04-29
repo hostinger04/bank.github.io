@@ -1,67 +1,97 @@
-<script>
-    // Fungsi untuk login biasa
-    function loginNormal(emailOrPhone, password) {
-        fetch('data.json')
-            .then(response => response.json())
-            .then(data => {
-                const pengguna = data.pengguna.find(user => 
-                    (user.email === emailOrPhone || user.no_hp === emailOrPhone) && 
-                    user.password === password
-                );
-
-                if (pengguna) {
-                    alert(`Login berhasil! Selamat datang ${pengguna.nama_lengkap}`);
-                    localStorage.setItem('pengguna', JSON.stringify(pengguna));
-                    window.location.href = 'dashboard.html';
-                } else {
-                    alert('Email/HP atau password salah!');
-                }
-            });
+// Fungsi untuk registrasi pengguna baru
+async function registerUser(userData) {
+  try {
+    const response = await fetch('data.json');
+    const data = await response.json();
+    
+    // Cek jika email sudah terdaftar
+    const userExists = data.pengguna.some(user => user.email === userData.email);
+    if (userExists) {
+      throw new Error('Email sudah terdaftar');
     }
 
-    // Fungsi untuk login dengan Google
-    function loginWithGoogle(googleUser) {
-        const profile = googleUser.getBasicProfile();
-        const googleData = {
-            email: profile.getEmail(),
-            google_id: profile.getId(),
-            nama_lengkap: profile.getName()
-        };
+    // Generate ID baru
+    const newUser = {
+      id: 'user' + (data.pengguna.length + 1),
+      nama: userData.nama,
+      email: userData.email,
+      no_hp: userData.no_hp,
+      password: userData.password, // Seharusnya di-hash di production
+      saldo: 0,
+      login_method: "email",
+      google_id: null,
+      tanggal_daftar: new Date().toISOString().split('T')[0],
+      terverifikasi: false
+    };
 
-        fetch('data.json')
-            .then(response => response.json())
-            .then(data => {
-                // Cek apakah pengguna sudah terdaftar
-                let pengguna = data.pengguna.find(user => 
-                    user.email === googleData.email && user.login_method === "google"
-                );
+    // Simpan ke localStorage (sementara)
+    data.pengguna.push(newUser);
+    localStorage.setItem('pengguna', JSON.stringify(newUser));
+    localStorage.setItem('allUsers', JSON.stringify(data.pengguna));
+    
+    return newUser;
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+}
 
-                if (!pengguna) {
-                    // Jika belum terdaftar, buat akun baru
-                    pengguna = {
-                        id: data.pengguna.length + 1,
-                        nama_lengkap: googleData.nama_lengkap,
-                        email: googleData.email,
-                        google_id: googleData.google_id,
-                        saldo: 0,
-                        riwayat_transaksi: [],
-                        login_method: "google"
-                    };
-                    // Di aplikasi nyata, di sini akan ada API call untuk menyimpan ke database
-                }
+// Fungsi untuk login dengan Google
+async function handleGoogleLogin(googleUser) {
+  const profile = googleUser.getBasicProfile();
+  const googleData = {
+    email: profile.getEmail(),
+    google_id: googleUser.getId(),
+    nama: profile.getName()
+  };
 
-                alert(`Login Google berhasil! Selamat datang ${pengguna.nama_lengkap}`);
-                localStorage.setItem('pengguna', JSON.stringify(pengguna));
-                window.location.href = 'dashboard.html';
-            });
+  try {
+    const response = await fetch('data.json');
+    const data = await response.json();
+    
+    // Cek apakah pengguna sudah ada
+    let user = data.pengguna.find(u => u.google_id === googleData.google_id || u.email === googleData.email);
+
+    if (!user) {
+      // Buat akun baru jika belum terdaftar
+      user = {
+        id: 'user' + (data.pengguna.length + 1),
+        nama: googleData.nama,
+        email: googleData.email,
+        no_hp: null,
+        password: null,
+        saldo: 0,
+        login_method: "google",
+        google_id: googleData.google_id,
+        tanggal_daftar: new Date().toISOString().split('T')[0],
+        terverifikasi: true
+      };
+
+      // Simpan ke localStorage (sementara)
+      data.pengguna.push(user);
+      localStorage.setItem('allUsers', JSON.stringify(data.pengguna));
     }
 
-    // Tambahkan button Google di HTML
-    document.getElementById('googleLoginBtn').addEventListener('click', () => {
-        // Ini contoh implementasi, di production gunakan Google OAuth SDK
-        alert('Mengarahkan ke login Google...');
-        // Implementasi aktual akan menggunakan:
-        // google.accounts.id.initialize()
-        // google.accounts.id.prompt()
-    });
-</script>
+    localStorage.setItem('pengguna', JSON.stringify(user));
+    window.location.href = 'dashboard.html';
+  } catch (error) {
+    console.error('Google login error:', error);
+    alert('Login dengan Google gagal');
+  }
+}
+
+// Inisialisasi Google Sign-In
+function initGoogleSignIn() {
+  google.accounts.id.initialize({
+    client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
+    callback: handleGoogleLogin
+  });
+  
+  google.accounts.id.renderButton(
+    document.getElementById('googleSignInButton'),
+    { theme: 'outline', size: 'large' }
+  );
+}
+
+// Panggil inisialisasi saat halaman dimuat
+window.onload = initGoogleSignIn;
