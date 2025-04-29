@@ -1,33 +1,28 @@
 {
   "pengguna": [
     {
-      "id": 1,
-      "nama_lengkap": " nama",
+      "id": "user1",
+      "nama": "nama",
       "email": "nama@gmail.com",
       "no_hp": "081234567890",
-      "password": "nama12345",
+      "password": "nama123",
       "saldo": 5000000,
-      "riwayat_transaksi": [],
-      "login_method": "email" // bisa: "email", "google", "facebook"
+      "login_method": "email",
+      "google_id": null,
+      "tanggal_daftar": "2023-06-15",
+      "terverifikasi": true
     },
     {
-      "id": 2,
-      "nama_lengkap": "nama",
-      "email": "nama@gmail.com",
-      "no_hp": "081298765432",
-      "password": "nama54321",
-      "saldo": 2500000,
-      "riwayat_transaksi": [],
-      "login_method": "email"
-    },
-    {
-      "id": 3,
-      "nama_lengkap": "Google User",
-      "email": "user.google@gmail.com",
-      "google_id": "google123456789",
-      "saldo": 1000000,
-      "riwayat_transaksi": [],
-      "login_method": "google"
+      "id": "user2",
+      "nama": "Google User",
+      "email": "user@gmail.com",
+      "no_hp": null,
+      "password": null,
+      "saldo": 0,
+      "login_method": "google",
+      "google_id": "1234567890abcdef",
+      "tanggal_daftar": "2023-06-16",
+      "terverifikasi": true
     }
   ]
 }
