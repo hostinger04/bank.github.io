@@ -1,0 +1,33 @@
+{
+  "pengguna": [
+    {
+      "id": 1,
+      "nama_lengkap": " nama",
+      "email": "nama@gmail.com",
+      "no_hp": "081234567890",
+      "password": "nama12345",
+      "saldo": 5000000,
+      "riwayat_transaksi": [],
+      "login_method": "email" // bisa: "email", "google", "facebook"
+    },
+    {
+      "id": 2,
+      "nama_lengkap": "nama",
+      "email": "nama@gmail.com",
+      "no_hp": "081298765432",
+      "password": "nama54321",
+      "saldo": 2500000,
+      "riwayat_transaksi": [],
+      "login_method": "email"
+    },
+    {
+      "id": 3,
+      "nama_lengkap": "Google User",
+      "email": "user.google@gmail.com",
+      "google_id": "google123456789",
+      "saldo": 1000000,
+      "riwayat_transaksi": [],
+      "login_method": "google"
+    }
+  ]
+}
