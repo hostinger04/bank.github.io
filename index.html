@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperBank Indonesia</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --secondary-color: #003366;
+            --accent-color: #00a0e1;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+            padding-bottom: 80px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+        
+        /* Header */
+        .app-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        /* Bank Selection Section */
+        .bank-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        .bank-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 12px;
+        }
+        
+        .bank-card {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .bank-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+        
+        .bank-logo {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            object-fit: contain;
+        }
+        
+        .bank-name {
+            font-size: 11px;
+            margin-top: 8px;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        /* Services Menu */
+        .services-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .service-item {
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .service-icon {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto 5px;
+            object-fit: contain;
+        }
+        
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #666;
+            text-decoration: none;
+            font-size: 11px;
+        }
+        
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+        
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+        
+        /* Help Button */
+        .help-button {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 90;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <h1>Bank  Indonesia</h1>
+    </header>
+    
+    <div class="container">
+        <!-- Bank Transfer Section -->
+        <section class="bank-section">
+            <h2 class="section-title">
+                <i class="fas fa-university"></i>
+                Bank Login Automatis
+            </h2>
+            <div class="bank-grid">
+                <!-- Bank Pemerintah -->
+                <div class="bank-card" data-bank="BSI">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Logo_Bank_Syariah_Indonesia_%282021%29.svg/1200px-Logo_Bank_Syariah_Indonesia_%282021%29.svg.png" alt="BSI" class="bank-logo">
+                    <div class="bank-name">Bank BSI</div>
+                </div>
+                <div class="bank-card" data-bank="BRI">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/BRI_2020.svg/1200px-BRI_2020.svg.png" alt="BRI" class="bank-logo">
+                    <div class="bank-name">Bank BRI</div>
+                </div>
+                <div class="bank-card" data-bank="Mandiri">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Bank_Mandiri_logo_2016.svg/1200px-Bank_Mandiri_logo_2016.svg.png" alt="Mandiri" class="bank-logo">
+                    <div class="bank-name">Bank Mandiri</div>
+                </div>
+                <div class="bank-card" data-bank="BNI">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/BNI_logo.svg/1200px-BNI_logo.svg.png" alt="BNI" class="bank-logo">
+                    <div class="bank-name">Bank BNI</div>
+                </div>
+                <div class="bank-card" data-bank="BTN">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Logo_Bank_Tabungan_Negara.svg/1200px-Logo_Bank_Tabungan_Negara.svg.png" alt="BTN" class="bank-logo">
+                    <div class="bank-name">Bank BTN</div>
+                </div>
+                
+                <!-- Bank Swasta -->
+                <div class="bank-card" data-bank="BCA">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia.svg/1200px-Bank_Central_Asia.svg.png" alt="BCA" class="bank-logo">
+                    <div class="bank-name">Bank BCA</div>
+                </div>
+                <div class="bank-card" data-bank="Danamon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Bank_Danamon_logo_2015.svg/1200px-Bank_Danamon_logo_2015.svg.png" alt="Danamon" class="bank-logo">
+                    <div class="bank-name">Bank Danamon</div>
+                </div>
+                <div class="bank-card" data-bank="CIMB">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/CIMB_Bank_logo.svg/1200px-CIMB_Bank_logo.svg.png" alt="CIMB" class="bank-logo">
+                    <div class="bank-name">Bank CIMB</div>
+                </div>
+                <div class="bank-card" data-bank="Permata">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Bank_Permata_logo.svg/1200px-Bank_Permata_logo.svg.png" alt="Permata" class="bank-logo">
+                    <div class="bank-name">Bank Permata</div>
+                </div>
+                
+                <!-- Digital Banks -->
+                <div class="bank-card" data-bank="Jenius">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Jenius_logo.svg/1200px-Jenius_logo.svg.png" alt="Jenius" class="bank-logo">
+                    <div class="bank-name">Jenius</div>
+                </div>
+                <div class="bank-card" data-bank="Digibank">
+                    <img src="https://www.dbs.com/digibank/id/images/new-home/dbs-digibank-logo.svg" alt="Digibank" class="bank-logo">
+                    <div class="bank-name">Digibank</div>
+                </div>
+                <div class="bank-card" data-bank="Neo Commerce">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Logo_Bank_Neo_Commerce.svg/1200px-Logo_Bank_Neo_Commerce.svg.png" alt="Neo" class="bank-logo">
+                    <div class="bank-name">Bank Neo</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Digital Wallet Section -->
+        <section class="bank-section">
+            <h2 class="section-title">
+                <i class="fas fa-wallet"></i>
+                Digital Wallet
+            </h2>
+            <div class="bank-grid">
+                <div class="bank-card" data-bank="DANA">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/DANA_logo.svg/1200px-DANA_logo.svg.png" alt="DANA" class="bank-logo">
+                    <div class="bank-name">DANA</div>
+                </div>
+                <div class="bank-card" data-bank="GOPAY">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Gopay_logo.svg/1200px-Gopay_logo.svg.png" alt="GOPAY" class="bank-logo">
+                    <div class="bank-name">GOPAY</div>
+                </div>
+                <div class="bank-card" data-bank="OVO">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/OVO_logo.svg/1200px-OVO_logo.svg.png" alt="OVO" class="bank-logo">
+                    <div class="bank-name">OVO</div>
+                </div>
+                <div class="bank-card" data-bank="LinkAja">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/LinkAja_logo.svg/1200px-LinkAja_logo.svg.png" alt="LinkAja" class="bank-logo">
+                    <div class="bank-name">LinkAja</div>
+                </div>
+                <div class="bank-card" data-bank="ShopeePay">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/ShopeePay_logo.svg/1200px-ShopeePay_logo.svg.png" alt="ShopeePay" class="bank-logo">
+                    <div class="bank-name">ShopeePay</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Services Menu -->
+        <section class="bank-section">
+            <h2 class="section-title">
+                <i class="fas fa-bolt"></i>
+                Layanan Lainnya
+            </h2>
+            <div class="services-menu">
+                <a href="pricelist.html" class="service-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1374/1374723.png" class="service-icon">
+                    <div>Top Up Game</div>
+                </a>
+                <div class="service-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2965/2965300.png" class="service-icon">
+                    <div>Pulsa/Data</div>
+                </div>
+                <div class="service-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2889/2889676.png" class="service-icon">
+                    <div>PLN</div>
+                </div>
+                <div class="service-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3447/3447567.png" class="service-icon">
+                    <div>BPJS</div>
+                </div>
+                <div class="service-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2541/2541979.png" class="service-icon">
+                    <div>PDAM</div>
+                </div>
+                <div class="service-item">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1038/1038100.png" class="service-icon">
+                    <div>TV Kabel</div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Floating Help Button -->
+    <a href="https://wa.me/6281253912576" class="help-button">
+        <i class="fas fa-headset"></i>
+    </a>
+    
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <i class="fas fa-home nav-icon"></i>
+            <span>Home</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-tag nav-icon"></i>
+            <span>Promo</span>
+        </a>
+        <a href="#" class="nav-item">
+            <i class="fas fa-user nav-icon"></i>
+            <span>Akun</span>
+        </a>
+    </nav>
+    
+    <script>
+        // Bank selection functionality
+        const bankCards = document.querySelectorAll('.bank-card');
+        bankCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const bank = this.getAttribute('data-bank');
+                alert(`Anda memilih ${bank}. Sistem akan redirect ke halaman ${bank}`);
+            });
+        });
+        
+        // Bottom nav active state
+        const navItems = document.querySelectorAll('.nav-item');
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                navItems.forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
